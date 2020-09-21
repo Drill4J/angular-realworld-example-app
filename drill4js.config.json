@@ -1,0 +1,25 @@
+{
+  "sources": {
+    "pattern": [
+      "src/**/*.ts"
+    ],
+    "ignore": [
+      "src/**/*.d.ts",
+      "src/**/polyfills.ts"
+    ]
+  },
+  "bundle": {
+    "pattern": "dist/**/*.js",
+    "ignore": ["dist/**/polyfills.js"]
+  },
+  "sourcemaps": {
+    "pattern": [
+      "dist/**/*.js.map"
+    ],
+    "ignore": ["dist/**/polyfills.js.map"]
+  },
+  "output": {
+    "agentId": "angular-demo-agent",
+    "agentApiUrl": "http://localhost:9404"
+  }
+}
