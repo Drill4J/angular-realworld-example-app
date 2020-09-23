@@ -3,9 +3,9 @@
 ```
 npm i -g @angular/cli
 ```
-2. [`yarn`](https://yarnpkg.com/getting-started/install)
+2. [`yarn`](https://yarnpkg.com/getting-started/install) installed globally
 ```
-npm i yarn
+npm i -g yarn
 ```
 3. [`docker`](https://www.docker.com/)
 
