@@ -1,53 +1,14 @@
 version: '3'
 
 services:
-  drill-admin:
-    image: drill4j/admin:${BACK_VERSION}
+  sampleproject:
+    image: drill4j/real-world-angular:java-and-js-coverage-${REALWORLD_BUILD_VERSION}
     environment:
-      - TEST2CODE_PLUGIN_VERSION=${TEST2CODE_PLUGIN_VERSION}
-      - JAVA_TOOL_OPTIONS="-Dplugin.feature.drealtime=true"
-      - LOG_LEVEL=trace
-      - DRILL_DEFAULT_PACKAGES=org/springframework/samples/petclinic
+      DRILL_JS_AGENT_HOST: ${DRILL_JS_AGENT_HOST}
+      DRILL_JS_AST_PARSER_VERSION: ${DRILL_JS_AST_PARSER_VERSION}
+      DRILL_JS_AGENT_AGENT_ID: ${DRILL_JS_AGENT_AGENT_ID}
+      DRILL_JS_AGENT_GROUP_ID: ${DRILL_JS_AGENT_GROUP_ID}
+      REALWORLD_BUILD_VERSION: ${REALWORLD_BUILD_VERSION}
+      REALWORLD_API_ADDRESS: ${REALWORLD_API_ADDRESS}
     ports:
-      - 9090:8090
-      - 6006:5006
-    networks:
-      - drill4j-dev-network
-
-  admin-ui:
-    image: drill4j/admin-ui:${FRONT_VERSION}
-    ports:
-      - 9091:8080
-    networks:
-      - drill4j-dev-network
-
-  mongo:
-    image: mongo:3.4
-    hostname: mongo
-    ports:
-      - '28017:27017'
-    networks:
-      - drill4j-dev-network
-
-  jsagent:
-    image: drill4j/js-agent:${JS_AGENT_VERSION}
-    hostname: jsagent
-    ports:
-      - '9404:9404'
-    environment:
-      COVERAGE_SOURCE_OMIT_PREFIX: 'webpack:///'
-      APP_PORT: '9404'
-      WAIT_HOSTS: mongo:27017, drill-admin:8090
-      DRILL_ADMIN_PROTOCOL: 'ws'
-      DRILL_ADMIN_HOST: 'drill-admin:8090'
-      MONGO_HOST: 'mongo:27017'
-      MONGO_DBNAME: 'js-agent'
-      DEBUG: 'drill:*'
-      DEBUG_COLORS: 'true'
-      FORCE_COLOR: '3'
-      DEBUG_LOG_LEVEL: '2'
-    networks:
-      - drill4j-dev-network
-
-networks:
-  drill4j-dev-network:
+      - "${REALWORLD_PORT}:80"

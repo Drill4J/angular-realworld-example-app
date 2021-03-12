@@ -19,7 +19,8 @@
     "ignore": ["dist/**/polyfills.js.map"]
   },
   "output": {
-    "agentId": "angular-demo-agent",
-    "agentApiUrl": "http://localhost:9404"
+    "agentId": "default-agent-id",
+    "groupId": "default-group-id",
+    "agentApiUrl": "jsagent:9404"
   }
 }
