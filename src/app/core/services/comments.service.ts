@@ -16,7 +16,7 @@ export class CommentsService {
     return this.apiService
     .post(
       `/articles/${slug}/comments`,
-      { comment: { body: payload } }
+      { comment: payload }
     ).pipe(map(data => data.comment));
   }
 

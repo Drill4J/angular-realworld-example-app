@@ -92,14 +92,19 @@
 
         <div *appShowAuthed="true">
           <app-list-errors [errors]="commentFormErrors"></app-list-errors>
-          <form class="card comment-form" (ngSubmit)="addComment()">
+          <form [formGroup]="commentForm" class="card comment-form" (ngSubmit)="addComment()">
             <fieldset [disabled]="isSubmitting">
               <div class="card-block">
                 <textarea class="form-control"
                   placeholder="Write a comment..."
                   rows="3"
-                  [formControl]="commentControl"
+                  formControlName="body"
                 ></textarea>
+                <input
+                  formControlName="subtitle"
+                  placeholder="Subtitle"
+                  class="form-control form-control-lg"
+                  type="text" />
               </div>
               <div class="card-footer">
                 <img [src]="currentUser.image" class="comment-author-img" />
@@ -118,7 +123,7 @@
         <app-article-comment
           *ngFor="let comment of comments"
           [comment]="comment"
-          (deleteComment)="onDeleteComment(comment)">
+          (deleteComment)="alert('cannot delete comment: method is deleted')">
         </app-article-comment>
 
       </div>

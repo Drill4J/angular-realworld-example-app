@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import {
@@ -21,6 +21,7 @@ export class ArticleComponent implements OnInit {
   canModify: boolean;
   comments: Comment[];
   commentControl = new FormControl();
+  commentForm: FormGroup;
   commentFormErrors = {};
   isSubmitting = false;
   isDeleting = false;
@@ -31,7 +32,14 @@ export class ArticleComponent implements OnInit {
     private commentsService: CommentsService,
     private router: Router,
     private userService: UserService,
-  ) { }
+    private fb: FormBuilder,
+  ) {
+    // use the FormBuilder to create a form group
+    this.commentForm = this.fb.group({
+      body: '',
+      subtitle: '',
+    });
+  }
 
   ngOnInit() {
     // Retreive the prefetched article
@@ -88,27 +96,18 @@ export class ArticleComponent implements OnInit {
     this.isSubmitting = true;
     this.commentFormErrors = {};
 
-    const commentBody = this.commentControl.value;
+    const commentBody = this.commentForm.value;
     this.commentsService
       .add(this.article.slug, commentBody)
       .subscribe(
         comment => {
           this.comments.unshift(comment);
-          this.commentControl.reset('');
+          this.commentForm.reset('');
           this.isSubmitting = false;
         },
         errors => {
           this.isSubmitting = false;
           this.commentFormErrors = errors;
-        }
-      );
-  }
-
-  onDeleteComment(comment) {
-    this.commentsService.destroy(comment.id, this.article.slug)
-      .subscribe(
-        success => {
-          this.comments = this.comments.filter((item) => item !== comment);
         }
       );
   }
