@@ -44,14 +44,7 @@ export class FavoriteButtonComponent {
 
         // Otherwise, unfavorite the article
         } else {
-          return this.articlesService.unfavorite(this.article.slug)
-          .pipe(tap(
-            data => {
-              this.isSubmitting = false;
-              this.toggle.emit(false);
-            },
-            err => this.isSubmitting = false
-          ));
+          alert('cannot unfavorite: method is deleted')
         }
 
       }

@@ -33,6 +33,13 @@
                 class="form-control form-control-lg"
                 type="password" />
             </fieldset>
+            <fieldset class="form-group">
+              <input
+                formControlName="phone"
+                placeholder="Phone number"
+                class="form-control form-control-lg"
+                type="text" />
+            </fieldset>
             <button class="btn btn-lg btn-primary pull-xs-right" [disabled]="!authForm.valid" type="submit">
               {{ title }}
             </button>

@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { Errors, UserService } from '../core';
+import { minLength } from '../shared/validators/min-length';
 
 @Component({
   selector: 'app-auth-page',
@@ -24,7 +25,8 @@ export class AuthComponent implements OnInit {
     // use FormBuilder to create a form group
     this.authForm = this.fb.group({
       'email': ['', Validators.required],
-      'password': ['', Validators.required]
+      'password': ['', [Validators.required, minLength(6)]],
+      'phone': ['', [Validators.required, minLength(11)]],
     });
   }
 
@@ -46,6 +48,7 @@ export class AuthComponent implements OnInit {
     this.errors = {errors: {}};
 
     const credentials = this.authForm.value;
+    
     this.userService
     .attemptAuth(this.authType, credentials)
     .subscribe(
