@@ -1,23 +1,10 @@
-FROM nginx:latest
+FROM drill4j/real-world-angular:base
 
 # Copy nginx config
 COPY ./nginx.conf /etc/nginx/conf.d/default.conf
 
 WORKDIR /var/www
 COPY ./ ./
-
-# Install Node.js
-RUN curl -sL https://deb.nodesource.com/setup_12.x -o nodesource_setup.sh \
-  && bash nodesource_setup.sh \
-  && apt-get install nodejs -y \
-  && node -v \
-# Install build tools
-## angular-cli
-  && npm i -g @angular/cli \
-## yarn
-  && npm i -g yarn \
-# Install project dependencies
-  && yarn install
 
 EXPOSE 8080
 
@@ -34,6 +21,6 @@ CMD sed -i 's!https://conduit.productionready.io/api!'${REALWORLD_API_ADDRESS}'!
 ## Replace default group id
   && sed -i 's!default-group-id!'${DRILL_JS_AGENT_GROUP_ID}'!g' /var/www/drill4js.config.json \
 # Run Drill4J parsing utility
-  && npx drill4js-cli@${DRILL_JS_AST_PARSER_VERSION} -c /var/www/drill4js.config.json -b ${REALWORLD_BUILD_VERSION} \
-# # Run nginx
+  && npx drill4js-cli@${DRILL_JS_AST_PARSER_VERSION} -c /var/www/drill4js.config.json -b ${REALWORLD_FRONTEND_BUILD_VERSION} \
+# Run nginx
   && nginx -g "daemon off;"
