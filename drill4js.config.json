@@ -1,0 +1,26 @@
+{
+  "sources": {
+    "pattern": [
+      "src/**/*.ts"
+    ],
+    "ignore": [
+      "src/**/*.d.ts",
+      "src/**/polyfills.ts"
+    ]
+  },
+  "bundle": {
+    "pattern": "dist/**/*.js",
+    "ignore": ["dist/**/polyfills.js"]
+  },
+  "sourcemaps": {
+    "pattern": [
+      "dist/**/*.js.map"
+    ],
+    "ignore": ["dist/**/polyfills.js.map"]
+  },
+  "output": {
+    "agentId": "default-agent-id",
+    "groupId": "default-group-id",
+    "agentApiUrl": "jsagent:9404"
+  }
+}

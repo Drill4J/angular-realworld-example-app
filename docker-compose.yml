@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+  realworld-frontend:
+    image: drill4j/real-world-angular:java-and-js-coverage-${REALWORLD_FRONTEND_BUILD_VERSION}
+    environment:
+      DRILL_JS_AGENT_HOST: ${DRILL_JS_AGENT_HOST}
+      DRILL_JS_AST_PARSER_VERSION: ${DRILL_JS_AST_PARSER_VERSION}
+      DRILL_JS_AGENT_AGENT_ID: ${DRILL_JS_AGENT_AGENT_ID}
+      DRILL_JS_AGENT_GROUP_ID: ${DRILL_JS_AGENT_GROUP_ID}
+      REALWORLD_FRONTEND_BUILD_VERSION: ${REALWORLD_FRONTEND_BUILD_VERSION}
+      REALWORLD_API_ADDRESS: ${REALWORLD_API_ADDRESS}
+    ports:
+      - "${REALWORLD_FRONTEND_PORT}:80"
+    networks:
+      - drill4j-dev-network
+
+  realworld-api:
+    image: drill4j/real-world-spring-api:java-and-js-coverage-${REALWORLD_API_BUILD_VERSION}
+    ports:
+      - "${REALWORLD_API_PORT}:8080"
+    networks:
+      - drill4j-dev-network
+
+  db:
+    image: mysql
+    environment:
+      - "MYSQL_ALLOW_EMPTY_PASSWORD=true"
+    ports:
+      - "3306:3306"
+    networks:
+      - drill4j-dev-network
+
+networks:
+  drill4j-dev-network:
